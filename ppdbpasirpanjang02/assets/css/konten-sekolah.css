@@ -1,0 +1,275 @@
+/* ==========================================================================
+   Konten Sekolah — gaya untuk:
+   - halaman pengunjung  : aboutsekolah.php (prefix .ab-) + kartu berita di index.php
+   - halaman admin       : admin/kelola_konten_sekolah.php (prefix .ks-)
+   Tidak mengubah kelas lama; semua kelas baru memakai prefix sendiri.
+   ========================================================================== */
+
+:root {
+    --ab-primary: #2c3e50;
+    --ab-blue: #166088;
+    --ab-blue-2: #4a6fa5;
+    --ab-accent: #3498db;
+    --ab-soft: #eef3fa;
+    --ab-line: #e3e9f2;
+    --ab-text: #333;
+    --ab-muted: #6b7280;
+    --ab-radius: 14px;
+    --ab-shadow: 0 4px 18px rgba(30, 50, 80, .08);
+    --ab-hdr: 72px; /* diperbarui oleh JS sesuai tinggi header */
+}
+
+/* ------------------------------------------------------------------ */
+/* HALAMAN PENGUNJUNG (aboutsekolah.php)                               */
+/* ------------------------------------------------------------------ */
+html { scroll-behavior: smooth; }
+
+body.ab-body {
+    background: #f4f7fb;
+    color: var(--ab-text);
+    min-height: 100vh;
+}
+body.ab-body::before { display: none; }   /* matikan overlay gambar bawaan global.css */
+body.ab-body main { padding-top: var(--ab-hdr); }
+
+.ab-wrap { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+/* Hero */
+.ab-hero {
+    background: linear-gradient(135deg, var(--ab-blue-2) 0%, var(--ab-blue) 100%);
+    color: #fff;
+    padding: 56px 0 64px;
+    text-align: center;
+}
+.ab-hero h1 { font-size: clamp(1.7rem, 4vw, 2.6rem); line-height: 1.2; margin-bottom: 12px; }
+.ab-hero p { max-width: 720px; margin: 0 auto; opacity: .92; font-size: 1.05rem; }
+
+/* Navigasi bagian (sticky) */
+.ab-subnav {
+    position: sticky;
+    top: var(--ab-hdr);
+    z-index: 900;
+    background: rgba(255, 255, 255, .96);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--ab-line);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, .04);
+}
+.ab-subnav .ab-wrap {
+    display: flex; gap: 8px; overflow-x: auto; padding-top: 10px; padding-bottom: 10px;
+    scrollbar-width: thin; -webkit-overflow-scrolling: touch;
+}
+.ab-subnav a {
+    flex: 0 0 auto;
+    display: inline-flex; align-items: center; gap: 7px;
+    padding: 8px 16px; border-radius: 999px;
+    background: var(--ab-soft); color: var(--ab-primary);
+    font-weight: 600; font-size: .92rem; text-decoration: none;
+    border: 1px solid transparent; transition: all .2s;
+}
+.ab-subnav a:hover { background: #dfe9f7; }
+.ab-subnav a.active { background: var(--ab-blue); color: #fff; }
+
+/* Section */
+.ab-section { padding: 56px 0 8px; scroll-margin-top: calc(var(--ab-hdr) + 64px); }
+.ab-section:last-of-type { padding-bottom: 40px; }
+.ab-title { text-align: center; margin-bottom: 32px; }
+.ab-title h2 { font-size: clamp(1.5rem, 3vw, 2rem); color: var(--ab-primary); display: inline-flex; align-items: center; gap: 10px; }
+.ab-title h2 i { color: var(--ab-accent); font-size: .85em; }
+.ab-title::after {
+    content: ''; display: block; width: 70px; height: 4px; margin: 12px auto 0;
+    border-radius: 2px; background: linear-gradient(135deg, var(--ab-accent), var(--ab-primary));
+}
+.ab-empty {
+    text-align: center; color: var(--ab-muted); background: #fff; border: 1px dashed #cfd8e6;
+    border-radius: var(--ab-radius); padding: 32px 20px;
+}
+.ab-empty i { font-size: 1.8rem; opacity: .5; display: block; margin-bottom: 8px; }
+
+/* Visi & Misi */
+.ab-vm { display: grid; grid-template-columns: 1fr 1.2fr; gap: 24px; align-items: stretch; }
+.ab-card-plain { background: #fff; border-radius: var(--ab-radius); box-shadow: var(--ab-shadow); padding: 28px; }
+.ab-visi {
+    background: linear-gradient(135deg, var(--ab-blue-2), var(--ab-blue)); color: #fff;
+    border-radius: var(--ab-radius); box-shadow: var(--ab-shadow); padding: 30px;
+}
+.ab-visi h3, .ab-misi h3 { display: flex; align-items: center; gap: 10px; font-size: 1.2rem; margin-bottom: 14px; }
+.ab-visi p { font-size: 1.1rem; line-height: 1.75; font-style: italic; }
+.ab-misi h3 { color: var(--ab-primary); }
+.ab-misi ol { list-style: none; counter-reset: misi; display: grid; gap: 12px; }
+.ab-misi li {
+    counter-increment: misi; position: relative; padding-left: 44px; line-height: 1.6; min-height: 32px;
+}
+.ab-misi li::before {
+    content: counter(misi); position: absolute; left: 0; top: 0;
+    width: 32px; height: 32px; border-radius: 50%;
+    background: var(--ab-soft); color: var(--ab-blue); font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+}
+
+/* Grid & kartu */
+.ab-grid { display: grid; gap: 22px; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
+.ab-grid.guru { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
+.ab-card {
+    background: #fff; border-radius: var(--ab-radius); box-shadow: var(--ab-shadow);
+    overflow: hidden; display: flex; flex-direction: column;
+    transition: transform .2s, box-shadow .2s; min-width: 0;
+}
+.ab-card:hover { transform: translateY(-4px); box-shadow: 0 10px 26px rgba(30, 50, 80, .13); }
+.ab-media { position: relative; aspect-ratio: 16 / 10; background: var(--ab-soft); overflow: hidden; }
+.ab-media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.ab-ph {
+    width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;
+    background: linear-gradient(135deg, #dbe7f7, #c7d9f1); color: var(--ab-blue-2); font-size: 2.6rem;
+}
+.ab-body-txt { padding: 18px 18px 20px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+.ab-body-txt h3 { font-size: 1.08rem; color: var(--ab-primary); line-height: 1.35; overflow-wrap: anywhere; }
+.ab-body-txt p { color: #555; font-size: .94rem; line-height: 1.6; overflow-wrap: anywhere; }
+.ab-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; font-size: .8rem; color: var(--ab-muted); }
+.ab-chip {
+    display: inline-block; padding: 3px 10px; border-radius: 999px;
+    background: var(--ab-soft); color: var(--ab-blue); font-weight: 700; font-size: .75rem;
+}
+.ab-more {
+    margin-top: auto; padding-top: 6px; color: var(--ab-blue); font-weight: 700;
+    text-decoration: none; font-size: .92rem; display: inline-flex; align-items: center; gap: 6px;
+}
+.ab-more:hover { color: var(--ab-accent); }
+
+/* Guru & staf */
+.ab-guru .ab-media { aspect-ratio: 1 / 1; }
+.ab-guru .ab-media img { object-position: center top; }
+.ab-guru .ab-body-txt { text-align: center; align-items: center; }
+.ab-guru .ab-role { color: var(--ab-blue); font-weight: 700; font-size: .85rem; background: var(--ab-soft); padding: 3px 12px; border-radius: 999px; }
+.ab-avatar {
+    width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;
+    background: linear-gradient(135deg, var(--ab-blue-2), var(--ab-blue)); color: #fff;
+    font-size: 3rem; font-weight: 700; letter-spacing: 2px;
+}
+
+/* Filter + muat lebih banyak */
+.ab-filter { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-bottom: 24px; }
+.ab-filter button {
+    border: 1px solid var(--ab-line); background: #fff; color: var(--ab-primary);
+    padding: 7px 16px; border-radius: 999px; font-weight: 600; cursor: pointer; font-size: .88rem;
+}
+.ab-filter button.active { background: var(--ab-blue); border-color: var(--ab-blue); color: #fff; }
+.ab-hidden { display: none !important; }
+.ab-loadmore { text-align: center; margin-top: 26px; }
+.ab-loadmore button {
+    background: #fff; border: 2px solid var(--ab-blue); color: var(--ab-blue);
+    padding: 10px 26px; border-radius: 999px; font-weight: 700; cursor: pointer;
+}
+.ab-loadmore button:hover { background: var(--ab-blue); color: #fff; }
+
+/* Detail berita / kegiatan */
+.ab-detail-wrap { padding-top: 40px; scroll-margin-top: calc(var(--ab-hdr) + 64px); }
+.ab-detail { background: #fff; border-radius: var(--ab-radius); box-shadow: var(--ab-shadow); overflow: hidden; max-width: 900px; margin: 0 auto; }
+.ab-detail-img { background: var(--ab-soft); text-align: center; }
+.ab-detail-img img { max-width: 100%; max-height: 480px; width: auto; height: auto; object-fit: contain; display: inline-block; vertical-align: top; }
+.ab-detail-body { padding: 28px clamp(18px, 4vw, 40px) 36px; }
+.ab-detail-body h1 { font-size: clamp(1.4rem, 3vw, 2rem); color: var(--ab-primary); line-height: 1.3; margin: 10px 0 8px; overflow-wrap: anywhere; }
+.ab-detail-body .lead { font-size: 1.05rem; color: #444; font-weight: 600; margin: 14px 0; }
+.ab-prose p { margin: 0 0 14px; line-height: 1.85; overflow-wrap: anywhere; }
+.ab-back { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 16px; color: var(--ab-blue); font-weight: 700; text-decoration: none; }
+.ab-draftbar {
+    background: #fff3cd; color: #856404; padding: 10px 16px; text-align: center; font-weight: 600; font-size: .92rem;
+}
+.ab-notfound {
+    max-width: 700px; margin: 0 auto; background: #fff; border-radius: var(--ab-radius); box-shadow: var(--ab-shadow);
+    text-align: center; padding: 32px 20px;
+}
+
+/* Footer ringkas */
+.ab-footer { background: var(--ab-primary); color: #cfd8dc; margin-top: 70px; padding: 34px 0; text-align: center; font-size: .92rem; }
+.ab-footer a { color: #fff; text-decoration: none; margin: 0 8px; }
+.ab-footer p + p { margin-top: 8px; }
+
+/* Bagian "Kabar Sekolah" di index.php */
+.ab-home-news { display: grid; gap: 22px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+.ab-home-cta { text-align: center; margin-top: 26px; }
+
+/* Responsif */
+@media (max-width: 992px) {
+    .ab-vm { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+    .ab-wrap { padding: 0 14px; }
+    .ab-hero { padding: 38px 0 44px; }
+    .ab-section { padding-top: 40px; }
+    .ab-grid, .ab-home-news { grid-template-columns: 1fr; }
+    .ab-grid.guru { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .ab-guru .ab-body-txt { padding: 12px 10px 14px; }
+    .ab-guru .ab-body-txt h3 { font-size: .95rem; }
+    .ab-guru .ab-body-txt p { font-size: .85rem; }
+    .ab-card-plain, .ab-visi { padding: 22px 18px; }
+}
+
+/* ------------------------------------------------------------------ */
+/* HALAMAN ADMIN (kelola_konten_sekolah.php)                           */
+/* ------------------------------------------------------------------ */
+.ks-topbar { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 14px; color: #555; }
+.ks-topbar p { margin: 0; }
+
+.ks-tabs {
+    display: flex; gap: 6px; overflow-x: auto; margin-bottom: 20px; padding-bottom: 4px;
+    border-bottom: 2px solid #e5e9f0; -webkit-overflow-scrolling: touch; scrollbar-width: thin;
+}
+.ks-tab {
+    flex: 0 0 auto; display: inline-flex; align-items: center; gap: 8px;
+    padding: 11px 16px; border-radius: 10px 10px 0 0; text-decoration: none;
+    color: #4a5568; font-weight: 600; background: #eef2f7; border: 1px solid transparent; white-space: nowrap;
+}
+.ks-tab:hover { background: #e2e9f3; }
+.ks-tab.active { background: #fff; color: #166088; border-color: #e5e9f0; border-bottom-color: #fff; box-shadow: 0 -2px 8px rgba(0, 0, 0, .04); margin-bottom: -2px; }
+.ks-tab em { font-style: normal; font-size: .75rem; background: #d9e3f0; color: #2c3e50; border-radius: 999px; padding: 1px 8px; }
+.ks-tab.active em { background: #166088; color: #fff; }
+
+.ks-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 20px; }
+.ks-wide { grid-column: 1 / -1; }
+.ks-grid .form-group { margin-bottom: 1.1rem; min-width: 0; }
+.ks-check { display: flex !important; align-items: center; gap: 10px; cursor: pointer; font-weight: 600; }
+.ks-check input { width: auto !important; flex: 0 0 auto; }
+.ks-current-img { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; margin-bottom: 10px; }
+.ks-current-img img, .ks-preview { max-width: 180px; max-height: 130px; border-radius: 8px; border: 1px solid #e5e9f0; object-fit: cover; }
+.ks-preview { display: block; margin-top: 10px; }
+.ks-preview[hidden] { display: none; }
+.form-hint { display: block; margin-top: 6px; color: #777; font-size: .83rem; }
+.ks-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; }
+.ks-errlist { margin: 6px 0 0 20px; }
+
+.ks-listhead { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 1rem; }
+.ks-listhead h2 { margin: 0; padding: 0; border: 0; }
+.ks-total { color: #666; }
+.ks-filter { display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+.ks-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.ks-chip { text-decoration: none; padding: 7px 14px; border-radius: 999px; background: #eef2f7; color: #2c3e50; font-weight: 600; font-size: .88rem; }
+.ks-chip em { font-style: normal; margin-left: 4px; opacity: .75; }
+.ks-chip.active { background: #166088; color: #fff; }
+.ks-filter-form { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.ks-filter-form select, .ks-filter-form input[type=search] { padding: 7px 10px; border: 1px solid #ddd; border-radius: 6px; font-size: .92rem; max-width: 100%; }
+
+.ks-table { width: 100%; }
+.ks-table td { vertical-align: middle; }
+.ks-thumb { width: 56px; height: 56px; border-radius: 8px; object-fit: cover; display: inline-flex; background: #eef2f7; }
+.ks-thumb-empty { align-items: center; justify-content: center; color: #8fa1b8; }
+.ks-muted { color: #8a94a3; }
+.ks-cat { display: inline-block; background: #eef2f7; color: #166088; border-radius: 999px; padding: 2px 10px; font-size: .8rem; font-weight: 600; }
+.ks-status { display: inline-block; padding: 3px 12px; border-radius: 999px; font-size: .8rem; font-weight: 700; white-space: nowrap; }
+.ks-status-draft { background: #fff3cd; color: #856404; }
+.ks-status-dipublikasikan { background: #d4edda; color: #155724; }
+.ks-rowactions { white-space: nowrap; }
+.ks-rowactions > a, .ks-rowactions > form { display: inline-block; margin: 2px 4px 2px 0; vertical-align: middle; }
+.ks-inline { display: inline-block; margin: 0; }
+.ks-inline button { margin: 0; }
+
+@media (max-width: 700px) {
+    .ks-grid { grid-template-columns: 1fr; }
+    .ks-tab { padding: 10px 13px; }
+    .ks-filter-form { width: 100%; }
+    .ks-filter-form select, .ks-filter-form input[type=search] { flex: 1 1 100%; }
+    .ks-rowactions { white-space: normal; }
+    .ks-rowactions > a, .ks-rowactions > form { flex: 1 1 auto; margin: 0 !important; }
+    .ks-rowactions .btn-sm, .ks-inline button { width: 100%; justify-content: center; }
+    .ks-inline { display: block; flex: 1 1 auto; }
+    .ks-admin .form-section { padding: 1.1rem; }
+}

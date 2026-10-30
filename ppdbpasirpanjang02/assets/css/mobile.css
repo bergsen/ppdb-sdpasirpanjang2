@@ -1,0 +1,347 @@
+/* =========================================================
+   MOBILE.CSS - Responsif untuk seluruh halaman PPDB
+   Dimuat PALING AKHIR di setiap halaman agar menang atas
+   <style> inline. Breakpoint utama: 768px dan 480px.
+   ========================================================= */
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+img, video, iframe, canvas, svg { max-width: 100%; }
+img, video { height: auto; }
+input, select, textarea, button { max-width: 100%; font-family: inherit; }
+
+/* Konten grid/flex boleh mengecil (penyebab utama grafik & kartu "meluber") */
+.main-content, .main-content *, .chart-box, .chart-wrapper,
+.stat-card, .stat-info, .data-card, .form-section { min-width: 0; }
+
+/* ---------- Tombol: label tidak patah per huruf ---------- */
+.btn-primary, .btn-secondary, .btn-success, .btn-danger,
+.btn-warning, .btn-info, .btn-view, .btn-download, .btn-zip {
+    white-space: normal;
+    text-align: center;
+    line-height: 1.25;
+}
+
+/* =========================================================
+   TABLET & PONSEL (<= 768px)
+   ========================================================= */
+@media (max-width: 768px) {
+
+    html, body { width: 100%; max-width: 100%; overflow-x: hidden; }
+    body { font-size: 15px; }
+
+    /* ----- Area konten (halaman login-area) ----- */
+    .main-content {
+        margin-left: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 68px 12px 24px !important;
+        overflow-x: hidden;
+    }
+    .main-content .container { padding: 0 !important; max-width: 100% !important; }
+
+    /* ----- Header halaman (judul + info user) ----- */
+    .dashboard-header { padding: .85rem 1rem !important; margin-bottom: 1rem !important; border-radius: 12px; }
+    .dashboard-header .container {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: .6rem !important;
+        text-align: left !important;
+    }
+    .dashboard-header h1 { font-size: 1.15rem !important; line-height: 1.3; overflow-wrap: anywhere; }
+    .dashboard-header .user-info { justify-content: flex-start !important; gap: .6rem; }
+    .dashboard-header .user-info small { display: inline-block; margin-left: .25rem; }
+
+    /* ----- Judul bagian ----- */
+    .main-content h2 { font-size: 1.1rem !important; line-height: 1.35; }
+    .main-content h3 { font-size: 1rem; }
+    .section-header, .page-header {
+        display: flex; flex-direction: column; align-items: stretch !important; gap: .6rem;
+    }
+
+    /* ----- Kartu / section ----- */
+    .form-section, .filter-section, .card, .data-card, .chart-box, .info-card {
+        padding: 14px !important;
+        border-radius: 12px !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        width: 100%;
+    }
+    .form-section { margin-bottom: 1rem !important; }
+    .form-section h2 { padding-bottom: .6rem !important; margin-bottom: 1rem !important; }
+
+    /* ----- SEMUA grid -> 1 kolom (override minmax(300px..) inline) ----- */
+    .stats-grid, .form-row, .filter-row, .chart-container, .data-grid,
+    .berkas-grid, .info-grid, .pengumuman-grid, .kuota-grid, .user-info-grid,
+    .footer-content, .contact-grid {
+        grid-template-columns: minmax(0, 1fr) !important;
+        gap: 12px !important;
+    }
+    /* ringkasan 4 angka: 2 kolom supaya ringkas */
+    .stats-summary {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 12px !important;
+        padding: 16px !important;
+    }
+    .summary-item h4 { font-size: 11px !important; }
+    .summary-item .number { font-size: 24px !important; }
+
+    /* ----- Kartu statistik ----- */
+    .stat-card { padding: 12px 14px !important; gap: 12px; }
+    .stat-icon { width: 46px !important; height: 46px !important; font-size: 1.15rem !important; flex-shrink: 0; }
+    .stat-info .number { font-size: 1.4rem !important; }
+
+    /* ----- Grafik ----- */
+    .chart-container { margin-top: 12px !important; }
+    .chart-box h3 { font-size: .95rem !important; margin-bottom: 12px !important; padding-bottom: 8px !important; }
+    .chart-wrapper { height: 250px !important; width: 100%; }
+    .chart-wrapper canvas { max-width: 100% !important; }
+
+    /* ----- Formulir ----- */
+    .form-group { margin-bottom: 1rem; }
+    .form-group label { font-size: .9rem; }
+    .main-content input:not([type=checkbox]):not([type=radio]):not([type=file]),
+    .main-content select, .main-content textarea {
+        width: 100%;
+        font-size: 16px !important; /* cegah zoom otomatis iOS */
+    }
+    .filter-row { align-items: stretch !important; }
+    .filter-row .btn-primary, .filter-row .btn-secondary { width: 100%; }
+
+    /* ----- Tombol ----- */
+    .main-content .btn-primary, .main-content .btn-secondary,
+    .main-content .btn-success, .main-content .btn-danger,
+    .main-content .btn-warning, .main-content .btn-info,
+    .main-content .btn-view, .main-content .btn-download, .main-content .btn-zip {
+        min-height: 44px;
+        padding: .65rem 1rem;
+        font-size: .92rem;
+    }
+    .main-content .btn-sm { min-height: 38px; padding: .45rem .8rem !important; font-size: .85rem !important; width: auto; }
+
+    /* kelompok tombol: tersusun vertikal, lebar penuh */
+    .form-actions, .action-buttons, .button-group, .modal-footer {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 10px !important;
+    }
+    .form-actions > a, .form-actions > button,
+    .action-buttons > a, .action-buttons > button,
+    .button-group > a, .button-group > button,
+    .modal-footer > a, .modal-footer > button { width: 100% !important; }
+    /* wrapper tombol "Set Semua Valid / Tidak Valid / Reset" (style inline) */
+    .form-actions > div[style*="flex"] {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 10px !important;
+        margin-top: .25rem !important;
+    }
+    .form-actions > div[style*="flex"] > button { width: 100% !important; flex: none !important; }
+    .download-all { text-align: stretch !important; }
+    .download-all .btn-zip { width: 100%; justify-content: center; }
+    .tahun-actions { padding: .8rem !important; }
+
+    /* ----- Daftar info (label : nilai) ----- */
+    .info-item {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 2px;
+    }
+    .info-label { min-width: 0 !important; font-size: .8rem !important; color: #6b7280 !important; }
+    .info-value { text-align: left !important; overflow-wrap: anywhere; }
+    .profile-info .info-item { flex-direction: column; }
+
+    /* ----- Berkas ----- */
+    .berkas-item { padding: 1rem !important; }
+    .berkas-header { flex-direction: column; align-items: flex-start !important; gap: .4rem; }
+    .file-info { flex-wrap: wrap; overflow-wrap: anywhere; }
+    .file-actions { flex-wrap: wrap; }
+    .file-actions > * { flex: 1 1 130px; justify-content: center; }
+    .file-preview { max-width: 100% !important; }
+
+    /* ----- Kartu daftar pendaftar (admin/kelola_pendaftar) ----- */
+    .user-card {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: .75rem !important;
+        padding: 14px !important;
+    }
+    .user-card .user-info { display: block !important; width: 100%; }
+    .user-name { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; font-size: .95rem !important; margin-bottom: .5rem; }
+    .user-details { display: flex; flex-direction: column; gap: 4px; margin-top: .25rem; }
+    .detail-item { font-size: .82rem !important; display: flex; flex-wrap: wrap; align-items: center; gap: 6px; overflow-wrap: anywhere; word-break: break-word; }
+    .user-actions {
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: wrap !important;
+        gap: 8px !important;
+        width: 100%;
+    }
+    .user-actions > a, .user-actions > button { flex: 1 1 calc(50% - 8px) !important; width: auto !important; justify-content: center; }
+    .user-actions > a.btn-info { flex: 1 1 100% !important; }
+
+    /* ----- Kartu daftar (informasi / pengumuman / kuota) ----- */
+    .info-card, .pengumuman-card, .kuota-card { max-width: 100%; overflow: hidden; }
+    .pengumuman-card img, .info-card img { width: 100%; height: auto; }
+
+    /* ----- Alert ----- */
+    .alert { padding: .8rem !important; font-size: .88rem !important; overflow-wrap: anywhere; }
+
+    /* ----- Modal ----- */
+    .modal-content {
+        width: calc(100% - 24px) !important;
+        max-width: 100% !important;
+        margin: 12px auto !important;
+        padding: 1rem !important;
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+
+    /* =====================================================
+       TABEL -> KARTU (label otomatis dari <th> via mobile.js)
+       ===================================================== */
+    .table-container, .table-responsive, .table-wrapper {
+        display: block !important;
+        width: 100% !important;
+        overflow: visible !important;
+        background: transparent !important;
+        box-shadow: none !important;
+        border-radius: 0 !important;
+    }
+    table.m-cards {
+        display: block !important;
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: 100% !important;
+        border: 0 !important;
+        background: transparent !important;
+        overflow: visible !important;
+    }
+    table.m-cards thead { display: none !important; }
+    table.m-cards tbody { display: block !important; width: 100% !important; }
+    table.m-cards tr {
+        display: block !important;
+        width: 100% !important;
+        margin: 0 0 12px !important;
+        padding: 4px 14px !important;
+        background: #fff !important;
+        border: 1px solid #e5e9f0 !important;
+        border-radius: 12px !important;
+        box-shadow: 0 2px 8px rgba(0,0,0,.06) !important;
+    }
+    table.m-cards tbody tr:hover { background: #fff !important; }
+    table.m-cards td {
+        display: flex !important;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 14px;
+        width: 100% !important;
+        min-width: 0 !important;
+        padding: 9px 0 !important;
+        border: 0 !important;
+        border-bottom: 1px dashed #e8ecf2 !important;
+        font-size: .9rem;
+        text-align: right !important;
+        white-space: normal !important;
+        overflow-wrap: anywhere;
+        word-break: normal;
+    }
+    table.m-cards td:last-child { border-bottom: 0 !important; }
+    table.m-cards td::before {
+        content: attr(data-label);
+        flex: 0 0 38%;
+        max-width: 42%;
+        font-weight: 600;
+        font-size: .8rem;
+        color: #6b7280;
+        text-align: left;
+        text-transform: none;
+    }
+    /* kolom nomor urut disembunyikan, tidak berguna di kartu */
+    table.m-cards td.m-no { display: none !important; }
+    /* baris "tidak ada data" (colspan) */
+    table.m-cards td[colspan] { display: block !important; text-align: center !important; }
+    table.m-cards td[colspan]::before { content: none; }
+    /* kolom aksi: label dibuang, tombol berjajar */
+    table.m-cards td.m-actions {
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        gap: 8px;
+        text-align: left !important;
+        padding-top: 12px !important;
+    }
+    table.m-cards td.m-actions::before { content: none; }
+    table.m-cards td.m-actions > a, table.m-cards td.m-actions > button { margin: 0 !important; flex: 1 1 auto; }
+    table.m-cards td.m-actions > .badge { align-self: center; }
+    table.m-cards td .status-badge, table.m-cards td .badge { white-space: normal; }
+
+    /* =====================================================
+       SIDEBAR (drawer) — selalu lebar penuh di ponsel,
+       mode "collapsed" (ikon saja) dimatikan
+       ===================================================== */
+    .sidebar, .sidebar.collapsed { width: 280px !important; max-width: 86vw; }
+    .sidebar.collapsed .menu-text,
+    .sidebar.collapsed .sidebar-header h3,
+    .sidebar.collapsed .sidebar-header p { display: initial !important; }
+    .sidebar { padding: 1rem 0 !important; z-index: 1100 !important; }
+    .sidebar-overlay { z-index: 1090 !important; }
+    .mobile-sidebar-toggle { z-index: 1050 !important; }
+    body.sidebar-open .mobile-sidebar-toggle { display: none !important; }
+    .sidebar-header { padding: .5rem 1rem 1rem !important; display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; }
+    .sidebar-header h3 { font-size: 1rem; flex: 1 1 0; min-width: 0; }
+    .sidebar-header p { flex: 1 1 100%; font-size: .8rem; opacity: .8; }
+    .sidebar-menu li a { padding: .85rem 1.1rem !important; }
+    .sidebar-menu li a .menu-text { white-space: normal; }
+
+    /* =====================================================
+       LOGIN / REGISTER / LUPA PASSWORD
+       ===================================================== */
+    .login-page { padding: 12px; align-items: flex-start; }
+    .login-container, .register-container {
+        width: 100% !important; max-width: 520px !important;
+        margin: 12px auto !important; padding: 20px 16px !important;
+    }
+    .form-options { flex-direction: column; align-items: flex-start; gap: .6rem; }
+
+    /* =====================================================
+       LANDING PAGE (index.php)
+       ===================================================== */
+    .header .header-content {
+        flex-direction: row !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        gap: .5rem !important;
+        padding: 0 14px;
+    }
+    .header .logo { min-width: 0; flex: 1 1 auto; }
+    .header .logo-text h1 { font-size: .95rem !important; line-height: 1.25; }
+    .header .logo-text p { font-size: .72rem !important; }
+    .header .logo-icon { font-size: 1.6rem; flex-shrink: 0; }
+    .header .mobile-menu-btn { flex-shrink: 0; }
+    .header .nav { max-height: calc(100vh - 70px); overflow-y: auto; }
+    .header .nav a { white-space: normal; }
+    .hero { padding-top: 100px !important; }
+    .hero-content h1 { overflow-wrap: anywhere; }
+    .hero-buttons { width: 100%; }
+    .hero-nav { width: 38px !important; height: 38px !important; }
+    .whatsapp-float { width: 48px !important; height: 48px !important; font-size: 24px !important;
+        right: 14px !important; bottom: calc(14px + env(safe-area-inset-bottom, 0px)) !important; }
+    .hero-slider { border-radius: 14px; }
+}
+
+/* =========================================================
+   PONSEL KECIL (<= 480px)
+   ========================================================= */
+@media (max-width: 480px) {
+    .main-content { padding: 64px 10px 20px !important; }
+    .form-section, .filter-section, .card, .data-card, .chart-box, .info-card { padding: 12px !important; }
+    .chart-wrapper { height: 230px !important; }
+    table.m-cards td::before { flex-basis: 40%; max-width: 44%; }
+}
+
+/* Cetak: jangan ikut aturan mobile */
+@media print {
+    table.m-cards td::before { content: none !important; }
+}
